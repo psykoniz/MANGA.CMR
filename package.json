@@ -1,0 +1,27 @@
+{
+  "name": "predem",
+  "version": "0.1.0",
+  "description": "PREDEM / SmartFoncier Africa - Municipal digital platform for Douala, Cameroon",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "type-check": "npm run type-check --workspaces",
+    "lint": "npm run lint --workspaces",
+    "migrate": "npm run migrate -w @predem/api",
+    "seed": "npm run seed -w @predem/api",
+    "start": "npm run start --workspaces"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
