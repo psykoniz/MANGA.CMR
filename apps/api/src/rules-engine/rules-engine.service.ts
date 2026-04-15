@@ -52,7 +52,7 @@ export class RulesEngineService {
           ruleName: rule.name,
           matched,
           actionTaken: matched ? rule.action : undefined,
-          inputData: context,
+          inputData: { ...context },
         });
         evaluationsToInsert.push(evaluation);
 
@@ -112,7 +112,7 @@ export class RulesEngineService {
     const operator = String(condition['operator'] ?? '');
     const value = condition['value'];
 
-    const contextValue = (context as Record<string, unknown>)[field];
+    const contextValue = (context as unknown as Record<string, unknown>)[field];
 
     // Type safety: validate field exists
     if (contextValue === undefined) {

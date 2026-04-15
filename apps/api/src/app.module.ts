@@ -62,9 +62,10 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
     BullModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        host: configService.get('REDIS_HOST', 'localhost'),
-        port: configService.get('REDIS_PORT', 6379),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      useFactory: (configService: ConfigService): any => ({
+        host: configService.get<string>('REDIS_HOST', 'localhost'),
+        port: Number(configService.get<string>('REDIS_PORT', '6379')),
       }),
     }),
 

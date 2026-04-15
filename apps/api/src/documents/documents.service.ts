@@ -46,7 +46,7 @@ export class DocumentsService {
     userId: string,
   ): Promise<UploadResult> {
     // Validate MIME type
-    if (!DOCUMENT_CONFIG.ACCEPTED_MIME_TYPES.includes(file.mimetype)) {
+    if (!(DOCUMENT_CONFIG.ACCEPTED_MIME_TYPES as readonly string[]).includes(file.mimetype)) {
       throw new BadRequestException(
         `Type de fichier non supporté. Types acceptés : ${DOCUMENT_CONFIG.ACCEPTED_MIME_TYPES.join(', ')}`,
       );

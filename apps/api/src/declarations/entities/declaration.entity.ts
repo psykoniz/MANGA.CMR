@@ -30,7 +30,7 @@ export enum DeclarationStatus {
 
 @Entity('declarations')
 export class Declaration {
-  @PrimaryGeneratedColumn('uuid', { default: 'gen_random_uuid()' })
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column({ type: 'varchar', unique: true })

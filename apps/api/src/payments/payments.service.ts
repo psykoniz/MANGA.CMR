@@ -178,11 +178,12 @@ export class PaymentsService {
         ? TransactionStatus.SUCCESS
         : TransactionStatus.FAILED;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await this.transactionRepository.update(transaction.id, {
       status: newStatus,
       webhookData: webhook.metadata,
       confirmedAt: webhook.status === 'SUCCESS' ? new Date() : null,
-    });
+    } as any);
 
     this.logger.log(
       JSON.stringify({

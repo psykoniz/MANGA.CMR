@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import * as helmet from 'helmet';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const helmet = require('helmet') as () => unknown;
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -58,7 +59,7 @@ async function bootstrap() {
   });
 
   // Health check endpoint
-  app.use('/health', (req, res) => {
+  app.use('/health', (req: Record<string, unknown>, res: { json: (v: unknown) => void }) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 

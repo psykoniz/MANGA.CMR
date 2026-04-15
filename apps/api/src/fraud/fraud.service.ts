@@ -62,6 +62,6 @@ export class FraudService {
       alert.resolutionNote = note;
       return this.fraudAlertRepo.save(alert);
     }
-    return alert as FraudAlert;
+    throw new Error(`FraudAlert ${id} not found`);
   }
 }
