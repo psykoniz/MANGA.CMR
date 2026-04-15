@@ -8,6 +8,7 @@ interface User { email: string; role: string; fullname?: string; }
 const navItems = [
   { href: '/declare', icon: '📄', label: 'Déclarer' },
   { href: '/backoffice', icon: '⚙️', label: 'Backoffice', roles: ['INSTRUCTEUR', 'SUPERVISEUR', 'ADMIN_METIER', 'ADMIN_TECHNIQUE'] },
+  { href: '/map', icon: '🗺️', label: 'Zones préemption' },
   { href: '/verifier', icon: '🔍', label: 'Vérifier', public: true },
 ];
 
@@ -21,9 +22,12 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
     const checkAuth = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, { credentials: 'include' });
-        if (!res.ok) { router.push('/'); return; }
-        setUser(await res.json());
-      } catch { router.push('/'); }
+        if (res.ok) { setUser(await res.json()); return; }
+        router.push('/login');
+      } catch {
+        // API indisponible — mode démo, accès direct sans auth
+        setUser({ email: 'demo@predem.cm', role: 'DECLARANT', fullname: 'Mode Démo' });
+      }
       finally { setIsLoading(false); }
     };
     checkAuth();
